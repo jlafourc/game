@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Equipe:</b>
+  <%= @rencontre.equipe %>
+</p>
+
+<p>
+  <b>Adversaire:</b>
+  <%= @rencontre.adversaire %>
+</p>
+
+<p>
+  <b>Jour:</b>
+  <%= @rencontre.jour %>
+</p>
+
+<p>
+  <b>Heure:</b>
+  <%= @rencontre.heure %>
+</p>
+
+<p>
+  <b>Domicile:</b>
+  <%= @rencontre.domicile %>
+</p>
+
+<p>
+  <b>Exempt:</b>
+  <%= @rencontre.exempt %>
+</p>
+
+<p>
+  <b>Reportee:</b>
+  <%= @rencontre.reportee %>
+</p>
+
+<p>
+  <b>Numero:</b>
+  <%= @rencontre.numero %>
+</p>
+
+
+<%= link_to 'Edit', edit_rencontre_path(@rencontre) %> |
+<%= link_to 'Back', rencontres_path %>

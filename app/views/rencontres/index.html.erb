@@ -1,0 +1,37 @@
+<h1>Listing rencontres</h1>
+
+<table>
+  <tr>
+    <th>Equipe</th>
+    <th>Adversaire</th>
+    <th>Jour</th>
+    <th>Heure</th>
+    <th>Domicile</th>
+    <th>Exempt</th>
+    <th>Reportee</th>
+    <th>Numero</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rencontres.each do |rencontre| %>
+  <tr>
+    <td><%= rencontre.equipe %></td>
+    <td><%= rencontre.adversaire %></td>
+    <td><%= rencontre.jour %></td>
+    <td><%= rencontre.heure %></td>
+    <td><%= rencontre.domicile %></td>
+    <td><%= rencontre.exempt %></td>
+    <td><%= rencontre.reportee %></td>
+    <td><%= rencontre.numero %></td>
+    <td><%= link_to 'Show', rencontre %></td>
+    <td><%= link_to 'Edit', edit_rencontre_path(rencontre) %></td>
+    <td><%= link_to 'Destroy', rencontre, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rencontre', new_rencontre_path %>

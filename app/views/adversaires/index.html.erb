@@ -1,0 +1,25 @@
+<h1>Listing adversaires</h1>
+
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Equipe</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @adversaires.each do |adversaire| %>
+  <tr>
+    <td><%= adversaire.nom %></td>
+    <td><%= adversaire.equipe %></td>
+    <td><%= link_to 'Show', adversaire %></td>
+    <td><%= link_to 'Edit', edit_adversaire_path(adversaire) %></td>
+    <td><%= link_to 'Destroy', adversaire, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Adversaire', new_adversaire_path %>

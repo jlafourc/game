@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  equipe: 
+  adversaire: 
+  jour: 2012-09-16
+  heure: 2012-09-16 17:01:23
+  domicile: false
+  exempt: false
+  reportee: false
+  numero: 1
+
+two:
+  equipe: 
+  adversaire: 
+  jour: 2012-09-16
+  heure: 2012-09-16 17:01:23
+  domicile: false
+  exempt: false
+  reportee: false
+  numero: 1

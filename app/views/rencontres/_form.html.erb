@@ -1,0 +1,18 @@
+<%= simple_form_for(@rencontre) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :equipe %>
+    <%= f.association :adversaire %>
+    <%= f.input :jour %>
+    <%= f.input :heure, :include_blank => true, :minute_step => 15 %>
+    <%= f.input :domicile %>
+    <%= f.input :exempt %>
+    <%= f.input :reportee %>
+    <%= f.input :numero %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
