@@ -1,9 +1,9 @@
-<h1>Listing adversaires</h1>
+<h1>Liste des adversaires</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Nom</th>
-    <th>Equipe</th>
+    <th>Équipe</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,13 +13,13 @@
   <tr>
     <td><%= adversaire.nom %></td>
     <td><%= adversaire.equipe %></td>
-    <td><%= link_to 'Show', adversaire %></td>
-    <td><%= link_to 'Edit', edit_adversaire_path(adversaire) %></td>
-    <td><%= link_to 'Destroy', adversaire, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Voir', adversaire, :class => "btn btn-info btn-small" %></td>
+    <td><%= link_to 'Éditer', edit_adversaire_path(adversaire), :class => "btn btn-success btn-small" %></td>
+    <td><%= link_to 'Supprimer', adversaire, :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Adversaire', new_adversaire_path %>
+<%= link_to 'Nouvel adversaire', new_adversaire_path %>

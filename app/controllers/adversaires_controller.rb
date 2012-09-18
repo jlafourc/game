@@ -1,4 +1,7 @@
 class AdversairesController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /adversaires
   # GET /adversaires.json
   def index

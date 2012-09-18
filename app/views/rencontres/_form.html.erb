@@ -2,9 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    
     <%= f.association :equipe %>
     <%= f.association :adversaire %>
-    <%= f.input :jour %>
+	<%= f.input :jour %>
     <%= f.input :heure, :include_blank => true, :minute_step => 15 %>
     <%= f.input :domicile %>
     <%= f.input :exempt %>

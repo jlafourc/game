@@ -1,6 +1,14 @@
 class EquipesController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
+  
   # GET /equipes
   # GET /equipes.json
+  # 
+  # 
+  
+  
   def index
     @equipes = Equipe.all
 

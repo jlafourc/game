@@ -1,45 +1,45 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Equipe:</b>
+  <b>Équipe:</b>
   <%= @rencontre.equipe %>
 </p>
 
 <p>
   <b>Adversaire:</b>
-  <%= @rencontre.adversaire %>
+  <%= @rencontre.adversaire.nom %>
 </p>
 
 <p>
   <b>Jour:</b>
-  <%= @rencontre.jour %>
+  <%= I18n.l @rencontre.jour %>
 </p>
 
 <p>
   <b>Heure:</b>
-  <%= @rencontre.heure %>
+  <%= I18n.l @rencontre.heure, :format => "%H:%M" %>
 </p>
 
 <p>
   <b>Domicile:</b>
-  <%= @rencontre.domicile %>
+  <%= @rencontre.domicile ? "Oui" : "Non" %>
 </p>
 
 <p>
   <b>Exempt:</b>
-  <%= @rencontre.exempt %>
+  <%= @rencontre.exempt ? "Oui" : "Non" %>
 </p>
 
 <p>
-  <b>Reportee:</b>
-  <%= @rencontre.reportee %>
+  <b>Reportée:</b>
+  <%= @rencontre.reportee ? "Oui" : "Non" %>
 </p>
 
 <p>
-  <b>Numero:</b>
+  <b>Numéro:</b>
   <%= @rencontre.numero %>
 </p>
 
 
-<%= link_to 'Edit', edit_rencontre_path(@rencontre) %> |
-<%= link_to 'Back', rencontres_path %>
+<%= link_to 'Éditer', edit_rencontre_path(@rencontre) %> |
+<%= link_to 'Retour', rencontres_path %>

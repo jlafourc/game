@@ -1,15 +1,15 @@
-<h1>Listing rencontres</h1>
+<h1>Liste des rencontres</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
-    <th>Equipe</th>
+    <th>Équipe</th>
     <th>Adversaire</th>
     <th>Jour</th>
     <th>Heure</th>
     <th>Domicile</th>
     <th>Exempt</th>
-    <th>Reportee</th>
-    <th>Numero</th>
+    <th>Reportée</th>
+    <th>Numéro</th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,20 +18,20 @@
 <% @rencontres.each do |rencontre| %>
   <tr>
     <td><%= rencontre.equipe %></td>
-    <td><%= rencontre.adversaire %></td>
-    <td><%= rencontre.jour %></td>
-    <td><%= rencontre.heure %></td>
-    <td><%= rencontre.domicile %></td>
-    <td><%= rencontre.exempt %></td>
-    <td><%= rencontre.reportee %></td>
+    <td><%= rencontre.adversaire.nom %></td>
+    <td><%= I18n.l rencontre.jour %></td>
+    <td><%= I18n.l rencontre.heure, :format => "%H:%M" %></td>
+    <td><%= rencontre.domicile ? "Oui" : "Non" %></td>
+    <td><%= rencontre.exempt  ? "Oui" : "Non" %></td>
+    <td><%= rencontre.reportee  ? "Oui" : "Non" %></td>
     <td><%= rencontre.numero %></td>
-    <td><%= link_to 'Show', rencontre %></td>
-    <td><%= link_to 'Edit', edit_rencontre_path(rencontre) %></td>
-    <td><%= link_to 'Destroy', rencontre, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Voir', rencontre, :class => "btn btn-info btn-small" %></td>
+    <td><%= link_to 'Éditer', edit_rencontre_path(rencontre), :class => "btn btn-success btn-small" %></td>
+    <td><%= link_to 'Supprimer', rencontre, :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Rencontre', new_rencontre_path %>
+<%= link_to 'Nouvelle rencontre', new_rencontre_path %>

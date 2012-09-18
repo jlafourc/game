@@ -1,4 +1,7 @@
 class RencontresController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /rencontres
   # GET /rencontres.json
   def index
