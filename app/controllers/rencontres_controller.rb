@@ -5,7 +5,7 @@ class RencontresController < ApplicationController
   # GET /rencontres
   # GET /rencontres.json
   def index
-    @rencontres = Rencontre.all
+    @rencontres = Rencontre.order("jour, heure")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -83,4 +83,11 @@ class RencontresController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def calendrier
+    respond_to do |format|
+      format.xlsx
+    end
+  end
+  
 end

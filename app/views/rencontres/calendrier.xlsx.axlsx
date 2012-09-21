@@ -1,0 +1,35 @@
+debut_mois = Date.new(2012,4)
+fin_mois = debut_mois.end_of_month
+week_ends = Array.new
+
+if debut_mois.sunday?
+  debut_mois = debut_mois - 1.day
+end
+
+if fin_mois.saturday?
+  fin_mois = fin_mois + 1.day
+end
+
+(debut_mois..fin_mois).each do |day| 
+
+	if day.saturday?
+	  week_ends.push Array.new
+	  week_ends.last.push day
+	end
+	if day.sunday?
+	  week_ends.last.push day
+  end
+    
+end
+
+
+wb = xlsx_package.workbook
+style_shout = wb.styles.add_style sz: 16, b: true, alignment: { horizontal: :center }
+wb.add_worksheet(name: "Foobar") do |sheet|
+  week_ends.map! { |we| we.map!{ |d| I18n.l d, :format => :short }.join(" / ") }
+  sheet.add_row week_ends.insert 0, ""
+  equipes = Equipe.all
+  equipes.each do |equipe|
+    sheet.add_row [equipe.nom_club]
+  end
+end

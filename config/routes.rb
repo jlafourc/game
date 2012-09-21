@@ -1,7 +1,11 @@
 Game::Application.routes.draw do
   devise_for :users
 
-  resources :rencontres
+  resources :rencontres do
+    collection do
+      get 'calendrier'
+    end
+  end
 
   resources :adversaires
 
