@@ -20,7 +20,7 @@
     <td><%= rencontre.equipe %></td>
     <td><%= rencontre.adversaire.nom %></td>
     <td><%= I18n.l rencontre.jour %></td>
-    <td><%= I18n.l rencontre.heure, :format => "%H:%M" %></td>
+    <td><%= rencontre.heure.nil? ? "-" : I18n.l(rencontre.heure, :format => "%H:%M") %></td>
     <td><%= rencontre.domicile ? "Oui" : "Non" %></td>
     <td><%= rencontre.exempt  ? "Oui" : "Non" %></td>
     <td><%= rencontre.reportee  ? "Oui" : "Non" %></td>

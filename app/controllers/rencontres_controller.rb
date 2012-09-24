@@ -28,7 +28,7 @@ class RencontresController < ApplicationController
   # GET /rencontres/new.json
   def new
     @rencontre = Rencontre.new
-
+    @rencontre.heure = nil
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @rencontre }
@@ -43,6 +43,12 @@ class RencontresController < ApplicationController
   # POST /rencontres
   # POST /rencontres.json
   def create
+    if params[:rencontre]["heure(4i)"] == "" and params[:rencontre]["heure(5i)"] == ""
+      params[:rencontre]["heure(1i)"] = ""
+      params[:rencontre]["heure(2i)"] = ""
+      params[:rencontre]["heure(3i)"] = ""            
+    end
+    
     @rencontre = Rencontre.new(params[:rencontre])
 
     respond_to do |format|
@@ -59,8 +65,13 @@ class RencontresController < ApplicationController
   # PUT /rencontres/1
   # PUT /rencontres/1.json
   def update
+    if params[:rencontre]["heure(4i)"] == "" and params[:rencontre]["heure(5i)"] == ""
+      params[:rencontre]["heure(1i)"] = ""
+      params[:rencontre]["heure(2i)"] = ""
+      params[:rencontre]["heure(3i)"] = ""            
+    end
+    
     @rencontre = Rencontre.find(params[:id])
-
     respond_to do |format|
       if @rencontre.update_attributes(params[:rencontre])
         format.html { redirect_to @rencontre, :notice => 'Rencontre was successfully updated.' }

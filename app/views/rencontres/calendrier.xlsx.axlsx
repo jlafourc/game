@@ -25,12 +25,13 @@ end
 
 wb = xlsx_package.workbook
 
-equipe_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center }, b: true
-we_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center }, i: true
-rencontre_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }
-rencontre_domicile_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, b: true
+equipe_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center }, b: true, :border => Axlsx::STYLE_THIN_BORDER
+we_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center }, i: true, :border => Axlsx::STYLE_THIN_BORDER
+rencontre_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, :border => Axlsx::STYLE_THIN_BORDER
+rencontre_domicile_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, b: true, :border => Axlsx::STYLE_THIN_BORDER
+page_setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "297mm", :paper_height => "210mm"}
 
-wb.add_worksheet(name: "Foobar") do |sheet|
+wb.add_worksheet(name: "Foobar", :page_setup => page_setup) do |sheet|
   
   week_ends_with_format = week_ends.map { |we| we.map{ |d| I18n.l d, :format => :short }.join(" / ") }
   sheet.add_row week_ends_with_format.insert(0, ""), :style => Array.new(week_ends_with_format.length + 1, we_format)
@@ -47,7 +48,9 @@ wb.add_worksheet(name: "Foobar") do |sheet|
     week_ends.each do |we|
       rencontre = Rencontre.where("equipe_id = ? AND jour in (?)", equipe.id, we).first
       if not rencontre.nil?
-        row.push rencontre.adversaire.nom + "\n" + I18n.l(rencontre.heure, :format => :short)
+        heure = rencontre.heure.nil? ? "" : "\n-\n" + I18n.l(rencontre.heure, :format => "%H:%M")
+        numero = rencontre.numero.nil? ? "" : "\n-\n" + "n° " + rencontre.numero.to_s
+        row.push rencontre.adversaire.nom + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
         if rencontre.domicile
           style.push rencontre_domicile_format
         else
@@ -55,7 +58,7 @@ wb.add_worksheet(name: "Foobar") do |sheet|
         end
       else
         row.push "-"
-        style.push nil
+        style.push rencontre_format
       end
       
     end

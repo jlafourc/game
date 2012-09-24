@@ -17,7 +17,7 @@
 
 <p>
   <b>Heure:</b>
-  <%= I18n.l @rencontre.heure, :format => "%H:%M" %>
+  <%= @rencontre.heure.nil? ? "-" : I18n.l(@rencontre.heure, :format => "%H:%M") %>
 </p>
 
 <p>
