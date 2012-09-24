@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/randym/axlsx.git
+  revision: 54e3e2f157df97e6edebaca3510fb0603be432a9
+  specs:
+    axlsx (1.2.3)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (>= 0.9.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,10 +38,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
-    axlsx (1.2.3)
-      htmlentities (~> 4.3.1)
-      nokogiri (>= 1.4.1)
-      rubyzip (>= 0.9.5)
     axlsx_rails (0.1.2)
       axlsx
       rails (~> 3.1)
@@ -140,6 +145,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  axlsx!
   axlsx_rails
   coffee-rails (~> 3.2.1)
   devise
