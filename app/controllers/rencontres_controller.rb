@@ -5,7 +5,18 @@ class RencontresController < ApplicationController
   # GET /rencontres
   # GET /rencontres.json
   def index
-    @rencontres = Rencontre.order("jour, heure")
+    param_mois = params[:filtre].nil? ? nil : params[:filtre][:mois]
+    if(param_mois.nil?)
+      mois_selectionne = Date.today.beginning_of_month
+      param_mois = mois_selectionne.month.to_s + "-" + mois_selectionne.year.to_s
+    else
+      param_mois_infos = param_mois.split("-")
+      mois_selectionne = Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
+    end
+    
+    @selected_mois = param_mois
+    @mois = Rencontre.mois
+    @rencontres = Rencontre.where("jour between ? and ?", mois_selectionne, mois_selectionne.end_of_month).order("jour, heure")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -96,8 +107,15 @@ class RencontresController < ApplicationController
   end
   
   def calendrier
+    param_mois = params[:mois]
+    param_mois_infos = param_mois.nil? ? Array.new : param_mois.split("-")
+    @mois = param_mois_infos.empty? ? Date.today : Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
+ 
     respond_to do |format|
-      format.xlsx
+      format.xlsx {
+        fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
+        response.headers['Content-Disposition'] = 'attachment; filename="' + fichier + '"'
+      }
     end
   end
   

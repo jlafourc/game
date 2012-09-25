@@ -1,4 +1,4 @@
-debut_mois = Date.new(2012,9)
+debut_mois = @mois.beginning_of_month
 fin_mois = debut_mois.end_of_month
 week_ends = Array.new
 
