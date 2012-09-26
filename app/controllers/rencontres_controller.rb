@@ -1,6 +1,6 @@
 class RencontresController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:calendrier]
   
   # GET /rencontres
   # GET /rencontres.json
@@ -115,6 +115,47 @@ class RencontresController < ApplicationController
       format.xlsx {
         fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
         response.headers['Content-Disposition'] = 'attachment; filename="' + fichier + '"'
+      }
+      
+      format.ics {
+        rencontres = Rencontre.all
+        ical = Icalendar::Calendar.new
+        rencontres.each do |rencontre|
+          e = Icalendar::Event.new
+          e.summary rencontre.equipe.nom_club + " - " + rencontre.adversaire.nom
+          if rencontre.heure.nil?
+            e.start rencontre.jour
+            e.start.ical_params = {'VALUE' => 'DATE'}
+            e.end = rencontre.jour
+            e.end.ical_params = {'VALUE' => 'DATE'}          
+          else
+            e.start = DateTime.new(rencontre.jour.year, rencontre.jour.month, rencontre.jour.day, rencontre.heure.hour, rencontre.heure.min)
+            e.end = DateTime.new(rencontre.jour.year, rencontre.jour.month, rencontre.jour.day, rencontre.heure.hour, rencontre.heure.min)
+          end
+          ical.add e
+        end
+
+        ical.publish
+        render :text => ical.to_ical, :layout => false
+
+        
+        
+        
+              
+        
+        #  e.dtstart.ical_params = {'VALUE' => 'DATE'}
+         
+                #dtstart.ical_params = { "VALUE" => "DATE" }     
+                #dtend DateTime.new(rencontre.jour.year, rencontre.jour.month, rencontre.jour.day), ical_params = { "VALUE" => "DATE" }                
+              #else
+                #dtstart DateTime.new(rencontre.jour.year, rencontre.jour.month, rencontre.jour.day, rencontre.heure.hour, rencontre.heure.min)
+                #dtend DateTime.new(rencontre.jour.year, rencontre.jour.month, rencontre.jour.day, rencontre.heure.hour, rencontre.heure.min)
+              #end
+            #end
+            #e.dtstart.ical_params = { "VALUE" => "DATE" }
+        #end
+        #end
+        #send_data(cal.export, :filename=>"calendrier.ics", :disposition=>"inline; filename=calendrier.ics", :type=>"text/calendar")
       }
     end
   end
