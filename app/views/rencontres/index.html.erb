@@ -8,7 +8,7 @@
 
 
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>	
 	  <tr>
 	    <th>Équipe</th>
@@ -31,10 +31,34 @@
     <td><%= rencontre.adversaire.nom %></td>
     <td><%= I18n.l rencontre.jour %></td>
     <td><%= rencontre.heure.nil? ? "-" : I18n.l(rencontre.heure, :format => "%H:%M") %></td>
-    <td><%= rencontre.domicile ? "Oui" : "Non" %></td>
-    <td><%= rencontre.exempt  ? "Oui" : "Non" %></td>
-    <td><%= rencontre.reportee  ? "Oui" : "Non" %></td>
-    <td><%= rencontre.numero %></td>
+    <td align="center">
+		<% if rencontre.domicile %>
+			<span class="label label-info">Domicile</span>
+		<% else %>	
+			<span class="label label-inverse">Extérieur</span>		
+		<% end %>
+	</td>
+    <td>
+		<% if rencontre.exempt %>
+			<span class="label">Exempt</span>			
+		<% end %>
+	</td>
+    <td>
+		<% if rencontre.reportee %>
+			<span class="label label-important">Reportée</span>			
+		<% end %>
+	</td>
+    <td>
+		<% if not rencontre.numero.nil? %>
+			<span class="badge badge-success">
+				<%= rencontre.numero %>
+			</span>
+		<% else %>
+			<span class="badge badge-warning">
+				...
+			</span>
+		<% end %>
+	</td>
     <td><%= link_to 'Voir', rencontre, :class => "btn btn-info btn-small" %></td>
     <td><%= link_to 'Éditer', edit_rencontre_path(rencontre), :class => "btn btn-success btn-small" %></td>
     <td><%= link_to 'Supprimer', rencontre, :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
