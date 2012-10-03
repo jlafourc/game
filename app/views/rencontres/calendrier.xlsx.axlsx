@@ -56,10 +56,11 @@ page_setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "2
         if not rencontre.nil?
           heure = rencontre.heure.nil? ? "" : "\n-\n" + I18n.l(rencontre.heure, :format => "%H:%M")
           numero = rencontre.numero.nil? ? "" : "\n-\n" + "n° " + rencontre.numero.to_s
-          row.push rencontre.adversaire.nom + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
-          if rencontre.domicile
+          if rencontre.domicile?
+            row.push rencontre.equipe.nom_competition + " / " + rencontre.adversaire.nom + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
             style.push rencontre_domicile_format
           else
+            row.push rencontre.adversaire.nom + " / " + rencontre.equipe.nom_competition + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
             style.push rencontre_format
           end
         else
