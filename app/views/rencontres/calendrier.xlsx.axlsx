@@ -1,28 +1,3 @@
-debut_mois = @mois.beginning_of_month
-fin_mois = debut_mois.end_of_month
-week_ends = Array.new
-
-if debut_mois.sunday?
-  debut_mois = debut_mois - 1.day
-end
-
-if fin_mois.saturday?
-  fin_mois = fin_mois + 1.day
-end
-
-(debut_mois..fin_mois).each do |day| 
-
-	if day.saturday?
-	  week_ends.push Array.new
-	  week_ends.last.push day
-	end
-	if day.sunday?
-	  week_ends.last.push day
-  end
-    
-end
-
-
 wb = xlsx_package.workbook
 
 equipe_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center }, b: true, :border => Axlsx::STYLE_THIN_BORDER
@@ -31,37 +6,69 @@ rencontre_format = wb.styles.add_style alignment: { horizontal: :center, :vertic
 rencontre_domicile_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, b: true, :border => Axlsx::STYLE_THIN_BORDER
 page_setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "297mm", :paper_height => "210mm"}
 
-wb.add_worksheet(name: "Foobar", :page_setup => page_setup) do |sheet|
+@tous_les_mois.each do |key, value| 
   
-  week_ends_with_format = week_ends.map { |we| we.map{ |d| I18n.l d, :format => :short }.join(" / ") }
-  sheet.add_row week_ends_with_format.insert(0, ""), :style => Array.new(week_ends_with_format.length + 1, we_format)
+  param_mois_infos = key.split("-")
+  mois = Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
   
-  equipes = Equipe.all
-  equipes.each do |equipe|
-    
-    row = Array.new
-    style = Array.new
-    
-    row.push equipe.nom_club
-    style.push equipe_format
+  debut_mois = mois.beginning_of_month
+  fin_mois = debut_mois.end_of_month
+  week_ends = Array.new
 
-    week_ends.each do |we|
-      rencontre = Rencontre.where("equipe_id = ? AND jour in (?)", equipe.id, we).first
-      if not rencontre.nil?
-        heure = rencontre.heure.nil? ? "" : "\n-\n" + I18n.l(rencontre.heure, :format => "%H:%M")
-        numero = rencontre.numero.nil? ? "" : "\n-\n" + "n° " + rencontre.numero.to_s
-        row.push rencontre.adversaire.nom + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
-        if rencontre.domicile
-          style.push rencontre_domicile_format
+  if debut_mois.sunday?
+    debut_mois = debut_mois - 1.day
+  end
+
+  if fin_mois.saturday?
+    fin_mois = fin_mois + 1.day
+  end
+
+  (debut_mois..fin_mois).each do |day| 
+
+  	if day.saturday?
+  	  week_ends.push Array.new
+  	  week_ends.last.push day
+  	end
+  	if day.sunday?
+  	  week_ends.last.push day
+    end
+    
+  end
+
+
+
+  wb.add_worksheet(name: I18n.l(mois, :format => "%B_%Y"), :page_setup => page_setup) do |sheet|
+  
+    week_ends_with_format = week_ends.map { |we| we.map{ |d| I18n.l d, :format => :short }.join(" / ") }
+    sheet.add_row week_ends_with_format.insert(0, ""), :style => Array.new(week_ends_with_format.length + 1, we_format)
+  
+    equipes = Equipe.all
+    equipes.each do |equipe|
+    
+      row = Array.new
+      style = Array.new
+    
+      row.push equipe.nom_club
+      style.push equipe_format
+
+      week_ends.each do |we|
+        rencontre = Rencontre.where("equipe_id = ? AND jour in (?)", equipe.id, we).first
+        if not rencontre.nil?
+          heure = rencontre.heure.nil? ? "" : "\n-\n" + I18n.l(rencontre.heure, :format => "%H:%M")
+          numero = rencontre.numero.nil? ? "" : "\n-\n" + "n° " + rencontre.numero.to_s
+          row.push rencontre.adversaire.nom + "\n-\n" + I18n.l(rencontre.jour, :format => "%A %d") + heure + numero
+          if rencontre.domicile
+            style.push rencontre_domicile_format
+          else
+            style.push rencontre_format
+          end
         else
+          row.push "-"
           style.push rencontre_format
         end
-      else
-        row.push "-"
-        style.push rencontre_format
-      end
       
+      end
+      sheet.add_row row, :style => style
     end
-    sheet.add_row row, :style => style
   end
 end

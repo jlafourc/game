@@ -107,13 +107,14 @@ class RencontresController < ApplicationController
   end
   
   def calendrier
-    param_mois = params[:mois]
-    param_mois_infos = param_mois.nil? ? Array.new : param_mois.split("-")
-    @mois = param_mois_infos.empty? ? Date.today : Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
- 
+    #param_mois = params[:mois]
+    #param_mois_infos = param_mois.nil? ? Array.new : param_mois.split("-")
+    #@mois = param_mois_infos.empty? ? Date.today : Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
+    @tous_les_mois = Rencontre.mois
     respond_to do |format|
       format.xlsx {
-        fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
+        #fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
+        fichier = "Calendrier_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
         response.headers['Content-Disposition'] = 'attachment; filename="' + fichier + '"'
       }
       

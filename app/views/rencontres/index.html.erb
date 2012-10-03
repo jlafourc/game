@@ -15,10 +15,10 @@
 	    <th>Adversaire</th>
 	    <th>Jour</th>
 	    <th>Heure</th>
-	    <th>Domicile</th>
-	    <th>Exempt</th>
-	    <th>Reportée</th>
-	    <th>Numéro</th>
+	    <th style="text-align: center;">Domicile</th>
+	    <th style="text-align: center;">Exempt</th>
+	    <th style="text-align: center;">Reportée</th>
+	    <th style="text-align: center;">Numéro</th>
 	    <th></th>
 	    <th></th>
 	    <th></th>
@@ -31,37 +31,43 @@
     <td><%= rencontre.adversaire.nom %></td>
     <td><%= I18n.l rencontre.jour %></td>
     <td><%= rencontre.heure.nil? ? "-" : I18n.l(rencontre.heure, :format => "%H:%M") %></td>
-    <td align="center">
+    <td style="text-align: center;">
 		<% if rencontre.domicile %>
 			<span class="label label-info">Domicile</span>
 		<% else %>	
 			<span class="label label-inverse">Extérieur</span>		
 		<% end %>
 	</td>
-    <td>
+    <td style="text-align: center;">
 		<% if rencontre.exempt %>
 			<span class="label">Exempt</span>			
 		<% end %>
 	</td>
-    <td>
+    <td style="text-align: center;">
 		<% if rencontre.reportee %>
 			<span class="label label-important">Reportée</span>			
 		<% end %>
 	</td>
-    <td>
+    <td style="text-align: center;">
 		<% if not rencontre.numero.nil? %>
 			<span class="badge badge-success">
 				<%= rencontre.numero %>
 			</span>
 		<% else %>
-			<span class="badge badge-warning">
-				...
-			</span>
+			<% if rencontre.domicile? %>
+				<span class="badge badge-important">
+					...
+				</span>
+			<% else %>
+				<span class="badge badge-warning">
+					...
+				</span>			
+			<% end %>
 		<% end %>
 	</td>
-    <td><%= link_to 'Voir', rencontre, :class => "btn btn-info btn-small" %></td>
-    <td><%= link_to 'Éditer', edit_rencontre_path(rencontre), :class => "btn btn-success btn-small" %></td>
-    <td><%= link_to 'Supprimer', rencontre, :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
+    <td style="text-align: center;"><%= link_to 'Voir', rencontre, :class => "btn btn-info btn-small" %></td>
+    <td style="text-align: center;"><%= link_to 'Éditer', edit_rencontre_path(rencontre), :class => "btn btn-success btn-small" %></td>
+    <td style="text-align: center;"><%= link_to 'Supprimer', rencontre, :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
   </tr>
 <% end %>
   </tbody>
@@ -69,4 +75,4 @@
 
 <br />
 
-<%= link_to 'Nouvelle rencontre', new_rencontre_path %>
+<%= link_to 'Nouvelle rencontre', new_rencontre_path, :class => "btn btn-primary" %>
