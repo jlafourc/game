@@ -7,9 +7,9 @@ Game::Application.routes.draw do
     end
   end
 
-  resources :adversaires
-
-  resources :equipes
+  resources :equipes do
+    resources :adversaires
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -13,3 +13,26 @@
 
 <%= link_to 'Éditer', edit_equipe_path(@equipe) %> |
 <%= link_to 'Retour', equipes_path %>
+
+<h1>Liste des adversaires</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>Nom</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @equipe.adversaires.each do |adversaire| %>
+  <tr>
+    <td><%= adversaire.nom %></td>
+    <td><%= link_to 'Éditer', edit_equipe_adversaire_path(@equipe, adversaire), :class => "btn btn-success btn-small" %></td>
+    <td><%= link_to 'Supprimer', equipe_adversaire_path(@equipe, adversaire), :method => :delete, :class => "btn btn-danger btn-small", :data => { :confirm => 'Êtes-vous sûr(e)?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nouvel adversaire', new_equipe_adversaire_path(@equipe) %>
+

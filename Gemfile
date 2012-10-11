@@ -27,7 +27,9 @@ gem 'simple_form'
 gem 'mysql2'
 gem 'devise'
 gem 'axlsx_rails'
-gem 'axlsx', :git => 'git://github.com/randym/axlsx.git'
+# gem "axlsx", "~> 1.3.1"
+
+gem 'axlsx' , :git => 'git://github.com/randym/axlsx.git'
 gem 'icalendar'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

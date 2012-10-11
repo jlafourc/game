@@ -5,7 +5,7 @@ we_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :
 rencontre_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, :border => Axlsx::STYLE_THIN_BORDER
 rencontre_domicile_format = wb.styles.add_style alignment: { horizontal: :center, :vertical => :center, :wrapText => true }, b: true, :border => Axlsx::STYLE_THIN_BORDER
 page_setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "297mm", :paper_height => "210mm"}
-
+page_margins = { :left => 0.1, :right => 0.1, :top => 0.1, :bottom => 0.1 }
 @tous_les_mois.each do |key, value| 
   
   param_mois_infos = key.split("-")
@@ -37,7 +37,7 @@ page_setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "2
 
 
 
-  wb.add_worksheet(name: I18n.l(mois, :format => "%B_%Y"), :page_setup => page_setup) do |sheet|
+  wb.add_worksheet(name: I18n.l(mois, :format => "%B_%Y"), :page_setup => page_setup, :page_margins => page_margins) do |sheet|
   
     week_ends_with_format = week_ends.map { |we| we.map{ |d| I18n.l d, :format => :short }.join(" / ") }
     sheet.add_row week_ends_with_format.insert(0, ""), :style => Array.new(week_ends_with_format.length + 1, we_format)

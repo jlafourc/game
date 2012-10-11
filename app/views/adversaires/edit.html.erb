@@ -2,5 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Voir', @adversaire %> |
-<%= link_to 'Retour', adversaires_path %>
+<%= link_to 'Retour', equipe_path(@adversaire.equipe) %>
