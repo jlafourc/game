@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/randym/axlsx.git
-  revision: 54e3e2f157df97e6edebaca3510fb0603be432a9
+  revision: be95b7eaa72cd7007bc0fef22d0c3ea4fa3c3553
   specs:
-    axlsx (1.2.3)
+    axlsx (1.3.1)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)

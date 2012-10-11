@@ -27,7 +27,10 @@ class AdversairesController < ApplicationController
   # GET /adversaires/new
   # GET /adversaires/new.json
   def new
+    @equipe = Equipe.find(params[:equipe_id])
+    
     @adversaire = Adversaire.new
+    @adversaire.equipe = @equipe
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +40,7 @@ class AdversairesController < ApplicationController
 
   # GET /adversaires/1/edit
   def edit
+    @equipe = Equipe.find(params[:equipe_id])
     @adversaire = Adversaire.find(params[:id])
   end
 
@@ -44,11 +48,12 @@ class AdversairesController < ApplicationController
   # POST /adversaires.json
   def create
     @adversaire = Adversaire.new(params[:adversaire])
+    @equipe = Equipe.find(params[:equipe_id])
 
     respond_to do |format|
       if @adversaire.save
-        format.html { redirect_to @adversaire, :notice => 'Adversaire was successfully created.' }
-        format.json { render :json => @adversaire, :status => :created, :location => @adversaire }
+        format.html { redirect_to @equipe, :notice => 'Adversaire was successfully created.' }
+        format.json { render :json => @adversaire, :status => :created, :location => @equipe }
       else
         format.html { render :action => "new" }
         format.json { render :json => @adversaire.errors, :status => :unprocessable_entity }
@@ -60,10 +65,10 @@ class AdversairesController < ApplicationController
   # PUT /adversaires/1.json
   def update
     @adversaire = Adversaire.find(params[:id])
-
+    @equipe = Equipe.find(params[:equipe_id])
     respond_to do |format|
       if @adversaire.update_attributes(params[:adversaire])
-        format.html { redirect_to @adversaire, :notice => 'Adversaire was successfully updated.' }
+        format.html { redirect_to @equipe, :notice => 'Adversaire was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -75,11 +80,12 @@ class AdversairesController < ApplicationController
   # DELETE /adversaires/1
   # DELETE /adversaires/1.json
   def destroy
+    @equipe = Equipe.find(params[:equipe_id])
     @adversaire = Adversaire.find(params[:id])
     @adversaire.destroy
 
     respond_to do |format|
-      format.html { redirect_to adversaires_url }
+      format.html { redirect_to @equipe }
       format.json { head :no_content }
     end
   end
