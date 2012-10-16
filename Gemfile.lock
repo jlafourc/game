@@ -142,7 +142,6 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     wicked_pdf (0.7.9)
-    wkhtmltopdf-binary (0.9.9.1)
 
 PLATFORMS
   ruby
@@ -163,4 +162,3 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   wicked_pdf
-  wkhtmltopdf-binary
