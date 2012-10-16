@@ -116,6 +116,7 @@ class RencontresController < ApplicationController
       format.pdf do
         render :pdf => "calendrier.pdf",
                :orientation => 'Landscape',
+               :use_xserver => false,
                :page_size => 'A4'
       end
       format.xlsx {
