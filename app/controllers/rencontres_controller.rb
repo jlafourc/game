@@ -112,6 +112,12 @@ class RencontresController < ApplicationController
     #@mois = param_mois_infos.empty? ? Date.today : Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
     @tous_les_mois = Rencontre.mois
     respond_to do |format|
+      
+      format.pdf do
+        render :pdf => "calendrier.pdf",
+               :orientation => 'Landscape',
+               :page_size => 'A4'
+      end
       format.xlsx {
         #fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
         fichier = "Calendrier_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
