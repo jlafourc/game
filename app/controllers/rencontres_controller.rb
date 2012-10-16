@@ -117,7 +117,6 @@ class RencontresController < ApplicationController
         render :pdf => "calendrier.pdf",
                :orientation => 'Landscape',
                :page_size => 'A4',
-               :wkhtmltopdf => '/usr/bin/wkhtmltopdf-xvfb'
       end
       format.xlsx {
         #fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
