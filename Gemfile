@@ -28,7 +28,6 @@ gem 'mysql2'
 gem 'devise'
 gem 'axlsx_rails'
 gem 'wicked_pdf'
-gem "wkhtmltopdf-binary"
 
 # gem "axlsx", "~> 1.3.1"
 
