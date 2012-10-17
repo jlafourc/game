@@ -1,4 +1,52 @@
-<table border="0" cellspacing="5" cellpadding="5">
-	<tr><th>Header</th></tr>
-	<tr><td>Data</td></tr>
-</table>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<style type='text/css'>
+	      .page {
+	        page-break-after:always;
+	        clear:both;
+	        display:block;
+	      }
+	    </style>
+	</head>
+	<body>
+	<% @les_mois.each do |le_mois| %>
+		<div class"page">
+			<table>
+				<tr>
+					<th>&nbsp;</th>
+					<% le_mois[:week_ends].each do |we| %>
+						<th><%= we.map{ |d| I18n.l d, :format => :short }.join(" / ") %></th>
+					<% end %>
+				</tr>
+				<% @equipes.each do |equipe| %>
+					<tr>
+						<td><%= equipe.nom_club %></td>
+						<% le_mois[:rencontres][equipe].each do |rencontre| %>
+							<td>
+								<% if rencontre.nil? %>
+									-
+								<% else %>
+									<% if rencontre.domicile? %> 
+						            	<%= rencontre.equipe.nom_competition + " / " + rencontre.adversaire.nom %>
+									<% else %>
+						 				<%= rencontre.adversaire.nom + " / " + rencontre.equipe.nom_competition %>
+									<% end %>
+									<br/>-<br/><%= I18n.l(rencontre.jour, :format => "%A %d") %>
+									<% if not rencontre.heure.nil? %>
+										<br/>-<br/><%= I18n.l(rencontre.heure, :format => "%H:%M") %>
+									<% end %>
+									<% if not rencontre.numero.nil? %>
+										<br/>-<br/>n&ordm; <%= rencontre.numero.to_s %>
+									<% end %>
+								<% end %>
+							</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</div>	
+	<% end %>
+	</body>
+</html>

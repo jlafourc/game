@@ -110,19 +110,61 @@ class RencontresController < ApplicationController
     #param_mois = params[:mois]
     #param_mois_infos = param_mois.nil? ? Array.new : param_mois.split("-")
     #@mois = param_mois_infos.empty? ? Date.today : Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
-    @tous_les_mois = Rencontre.mois
     respond_to do |format|
       
       format.pdf do
-        render :pdf => "calendrier.pdf"#,
-#               :orientation => 'Landscape',
- #              :page_size => 'A4'
+        
+        @tous_les_mois = Rencontre.mois
+        @equipes = Equipe.all
+        @les_mois = Array.new
+        @tous_les_mois.each do |key, value|
+          le_mois = Hash.new
+          param_mois_infos = key.split("-")
+          mois = Date.new(param_mois_infos[1].to_i, param_mois_infos[0].to_i)
+
+          debut_mois = mois.beginning_of_month
+          fin_mois = debut_mois.end_of_month
+          week_ends = Array.new
+
+          if debut_mois.sunday?
+            debut_mois = debut_mois - 1.day
+          end
+
+          if fin_mois.saturday?
+            fin_mois = fin_mois + 1.day
+          end
+
+          (debut_mois..fin_mois).each do |day|
+
+            if day.saturday?
+              week_ends.push Array.new
+              week_ends.last.push day
+            end
+            if day.sunday?
+              week_ends.last.push day
+            end
+
+          end
+          
+          rencontres = Hash.new
+          @equipes.each do |equipe|
+
+            rencontres[equipe] = Array.new
+
+            week_ends.each do |we|
+              rencontre = Rencontre.where("equipe_id = ? AND jour in (?)", equipe.id, we).first
+              rencontres[equipe].push rencontre
+            end
+          end
+          le_mois[:week_ends] = week_ends
+          le_mois[:rencontres] = rencontres
+          @les_mois.push le_mois
+        end 
+        
+        render :pdf => "calendrier.pdf",
+               :orientation => 'Landscape',
+               :page_size => 'A4'
       end
-      format.xlsx {
-        #fichier = "Calendrier_" + I18n.l(@mois, :format => "%B_%Y") + "_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
-        fichier = "Calendrier_edite_le_" + I18n.l(Time.now, :format => "%d_%m_%Y_a_%H_%M_%S") + ".xlsx"
-        response.headers['Content-Disposition'] = 'attachment; filename="' + fichier + '"'
-      }
 
       format.ics {
         rencontres = Rencontre.all
@@ -166,5 +208,4 @@ class RencontresController < ApplicationController
       }
     end
   end
-
 end
