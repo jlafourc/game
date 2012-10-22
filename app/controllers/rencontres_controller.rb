@@ -163,7 +163,8 @@ class RencontresController < ApplicationController
         
         render :pdf => "calendrier.pdf",
                :orientation => 'Landscape',
-               :page_size => 'A4'
+               :page_size => 'A4',
+               :show_as_html => false
       end
 
       format.ics {

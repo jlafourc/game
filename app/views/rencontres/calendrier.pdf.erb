@@ -1,19 +1,10 @@
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-		<style type='text/css'>
-	      .page {
-	        page-break-after:always;
-	        clear:both;
-	        display:block;
-	      }
-	    </style>
 	</head>
 	<body>
+
 	<% @les_mois.each do |le_mois| %>
-		<div class"page">
-			<table>
+			<table style="page-break-after:always;">
 				<tr>
 					<th>&nbsp;</th>
 					<% le_mois[:week_ends].each do |we| %>
@@ -46,7 +37,6 @@
 					</tr>
 				<% end %>
 			</table>
-		</div>	
 	<% end %>
 	</body>
 </html>
