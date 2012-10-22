@@ -145,7 +145,7 @@ class RencontresController < ApplicationController
             end
 
           end
-          
+          le_mois[:titre] = I18n.l(debut_mois, :format => "%B %Y")
           rencontres = Hash.new
           @equipes.each do |equipe|
 
@@ -164,7 +164,10 @@ class RencontresController < ApplicationController
         render :pdf => "calendrier.pdf",
                :orientation => 'Landscape',
                :page_size => 'A4',
-               :show_as_html => false
+               :margin => {:top => 5,
+                           :bottom => 5,
+                           :left => 5,
+                           :right => 5}
       end
 
       format.ics {

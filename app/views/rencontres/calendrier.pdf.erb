@@ -27,12 +27,18 @@
 			
 			table tr td, th {
 				border: black thin solid;
+				padding: 3px;
+			}
+			
+			h1 {
+				text-align: center;
 			}
 		</style>
 	</head>
 	<body>
 
 	<% @les_mois.each do |le_mois| %>
+			<h1><%= le_mois[:titre].capitalize %></h1>
 			<table style="page-break-after:always;">
 				<tr>
 					<th>&nbsp;</th>
@@ -53,12 +59,12 @@
 									<% else %>
 						 				<%= rencontre.adversaire.nom + " / " + rencontre.equipe.nom_competition %>
 									<% end %>
-									<br/>-<br/><%= I18n.l(rencontre.jour, :format => "%A %d") %>
+									<br/><br/><%= I18n.l(rencontre.jour, :format => "%A %d") %>
 									<% if not rencontre.heure.nil? %>
-										<br/>-<br/><%= I18n.l(rencontre.heure, :format => "%H:%M") %>
+										- <%= I18n.l(rencontre.heure, :format => "%H:%M") %>
 									<% end %>
 									<% if not rencontre.numero.nil? %>
-										<br/>-<br/>n&ordm; <%= rencontre.numero.to_s %>
+										<br/><br/>n&ordm; <%= rencontre.numero.to_s %>
 									<% end %>
 								<% end %>
 							</td>
