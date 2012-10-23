@@ -3,6 +3,6 @@ class Adversaire < ActiveRecord::Base
   attr_accessible :nom, :equipe_id
   
   def to_s
-    return equipe.nom_club + " - " + nom
+    return nom
   end
 end

@@ -4,7 +4,7 @@
   <div class="form-inputs">
     
     <%= f.association :equipe %>
-    <%= f.association :adversaire %>
+	<%= f.association :adversaire, :as => :grouped_select, :collection => Equipe.all, :group_method => :adversaires %>
 	<%= f.input :jour %>
     <%= f.input :heure, :as => :time, :include_blank => true, :minute_step => 15 %>
     <%= f.input :domicile %>
