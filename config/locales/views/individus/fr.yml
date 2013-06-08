@@ -1,0 +1,8 @@
+fr:
+  individus:
+    index:
+      title: Liste des individus
+      new: Nouvel individu
+      confirm: Êtes vous sûr(e) de vouloir supprimer cet individu ?
+    edit:
+      update: Modifier

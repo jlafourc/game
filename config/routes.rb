@@ -1,4 +1,6 @@
 Game::Application.routes.draw do
+  resources :individus
+
   devise_for :users
 
   resources :rencontres do

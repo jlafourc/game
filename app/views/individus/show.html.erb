@@ -1,0 +1,27 @@
+<%- model_class = Individu -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:nom) %>:</strong></dt>
+  <dd><%= @individu.nom %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:prenom) %>:</strong></dt>
+  <dd><%= @individu.prenom %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:date_de_naissance) %>:</strong></dt>
+  <dd><%= @individu.date_de_naissance %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:sexe) %>:</strong></dt>
+  <dd><%= @individu.sexe %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              individus_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_individu_path(@individu), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              individu_path(@individu),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

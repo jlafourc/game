@@ -170,6 +170,9 @@ fr:
       last_word_connector: " et "
 
   helpers:
+    links:
+      edit: Éditer
+      destroy: Supprimer
     select:
       prompt: "Veuillez sélectionner"
     submit:
