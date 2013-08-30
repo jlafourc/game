@@ -1,5 +1,7 @@
 class EquipesController < ApplicationController
   
+  include SaisonsHelper
+  
   before_filter :authenticate_user!
   
   
@@ -10,7 +12,7 @@ class EquipesController < ApplicationController
   
   
   def index
-    @equipes = Equipe.all
+    @equipes = Equipe.where("saison_id = ?", saison_courante.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +51,7 @@ class EquipesController < ApplicationController
   # POST /equipes.json
   def create
     @equipe = Equipe.new(params[:equipe])
-
+    @equipe.saison = saison_courante
     respond_to do |format|
       if @equipe.save
         format.html { redirect_to @equipe, :notice => 'Equipe was successfully created.' }

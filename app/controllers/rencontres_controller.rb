@@ -1,5 +1,5 @@
 class RencontresController < ApplicationController
-
+  include SaisonsHelper
   before_filter :authenticate_user!, :except => [:calendrier]
 
   # GET /rencontres
@@ -16,7 +16,7 @@ class RencontresController < ApplicationController
 
     @selected_mois = param_mois
     @mois = Rencontre.mois
-    @rencontres = Rencontre.where("jour between ? and ?", mois_selectionne, mois_selectionne.end_of_month).order("jour, heure")
+    @rencontres = Rencontre.joins(:equipe).where("equipes.saison_id = ? and jour between ? and ?", saison_courante.id, mois_selectionne, mois_selectionne.end_of_month).order("jour, heure")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -115,7 +115,7 @@ class RencontresController < ApplicationController
       format.pdf do
         
         @tous_les_mois = Rencontre.mois
-        @equipes = Equipe.all
+        @equipes = Equipe.where("saison_id = ?", saison_courante.id)
         @les_mois = Array.new
         @tous_les_mois.each do |key, value|
           le_mois = Hash.new

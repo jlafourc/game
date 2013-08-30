@@ -1,10 +1,14 @@
+
+
 class Rencontre < ActiveRecord::Base
   belongs_to :equipe
   belongs_to :adversaire
   attr_accessible :domicile, :exempt, :heure, :jour, :numero, :reportee, :equipe_id, :adversaire_id
 
+
   def self.mois
-    rencontres = Rencontre.order("jour, heure")
+    saison_courante = Saison.where("debut <= ? and fin >= ?", Date.today, Date.today).first
+    rencontres = Rencontre.where("jour between ? and ?", saison_courante.debut, saison_courante.fin).order("jour, heure")
     mois = Hash.new
     if rencontres.empty?
       return mois

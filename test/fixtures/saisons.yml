@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nom: MyString
+  debut: 2013-08-30
+  fin: 2013-08-30
+
+two:
+  nom: MyString
+  debut: 2013-08-30
+  fin: 2013-08-30
