@@ -126,6 +126,8 @@ class RencontresController < ApplicationController
           fin_mois = debut_mois.end_of_month
           week_ends = Array.new
 
+          le_mois[:titre] = I18n.l(debut_mois, :format => "%B %Y")
+
           if debut_mois.sunday?
             debut_mois = debut_mois - 1.day
           end
@@ -145,7 +147,6 @@ class RencontresController < ApplicationController
             end
 
           end
-          le_mois[:titre] = I18n.l(debut_mois, :format => "%B %Y")
           rencontres = Hash.new
           @equipes.each do |equipe|
 
