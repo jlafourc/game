@@ -1,0 +1,12 @@
+
+'use strict';
+
+var App = angular.module('gameAngularApp', ['ngRoute'])
+  .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/rencontres', {templateUrl: '<%= asset_path "rencontres.html" %>', controller: 'RencontresCtrl'})
+    .otherwise({
+        redirectTo: '/'
+      });
+  }]);
+
+
