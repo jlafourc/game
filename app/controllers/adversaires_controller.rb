@@ -1,11 +1,12 @@
 class AdversairesController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index, :show]
+
   
   # GET /adversaires
   # GET /adversaires.json
   def index
-    @adversaires = Adversaire.all
+    @adversaires = Adversaire.where("equipe_id = ?", params[:equipe_id])
 
     respond_to do |format|
       format.html # index.html.erb

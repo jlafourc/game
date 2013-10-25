@@ -1,6 +1,6 @@
 class RencontresController < ApplicationController
   include SaisonsHelper
-  before_filter :authenticate_user!, :except => [:calendrier]
+  before_filter :authenticate_user!, :except => [:index, :show, :calendrier]
 
   # GET /rencontres
   # GET /rencontres.json

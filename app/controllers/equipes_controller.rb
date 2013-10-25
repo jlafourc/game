@@ -2,7 +2,7 @@ class EquipesController < ApplicationController
   
   include SaisonsHelper
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index, :show]
   
   
   # GET /equipes

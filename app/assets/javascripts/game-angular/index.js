@@ -6,8 +6,11 @@
 //= require ./app/bower_components/angular-cookies/angular-cookies.js
 //= require ./app/bower_components/angular-sanitize/angular-sanitize.js
 //= require ./app/bower_components/angular-route/angular-route.js
+//= require ./app/bower_components/underscore/underscore-min.js
 
 //= require ./app/scripts/app
-//= require_tree ./app/scripts/controllers
+//= require ./app/scripts/router
 //= require ./app/scripts/csrf
-//= require ./app/scripts/push-state
+//= require_tree ./app/scripts/services
+//= require_tree ./app/scripts/controllers
+

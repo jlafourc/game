@@ -1,0 +1,33 @@
+
+'use strict';
+
+angular.module('gameAngularApp')
+  .config(['$routeProvider', '$locationProvider', function ($routeProvider,$locationProvider, $log) {
+    $routeProvider.when('/rencontres',
+    	{
+    		templateUrl: '<%= asset_path "rencontres.html" %>', 
+    		controller: 'RencontresCtrl',
+    		resolve: {
+    			rencontres: function(Rencontre) {
+    				return Rencontre.query();    					
+    			}, 
+    			equipes: function(Equipe, Adversaire) {
+    				return Equipe.query().$promise.then(function(equipes) {
+    					angular.forEach(equipes, function(equipe) {
+    						equipe.adversaires = Adversaire.query({equipe_id: equipe.id});	
+    					});
+    					return equipes;
+    				});
+    			}
+
+    		}
+    		
+    	}
+    )
+    .otherwise({
+        redirectTo: '/'
+      });
+    $locationProvider.html5Mode(true);
+  }]);
+
+

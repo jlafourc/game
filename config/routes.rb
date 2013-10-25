@@ -3,16 +3,20 @@ Game::Application.routes.draw do
 
   devise_for :users
 
-  resources :rencontres do
-    collection do
-      get 'calendrier'
+  scope 'api' do
+
+
+    resources :rencontres do
+      collection do
+        get 'calendrier'
+      end
     end
-  end
+  
+    resources :equipes do
+      resources :adversaires
+    end
 
-  resources :equipes do
-    resources :adversaires
   end
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
